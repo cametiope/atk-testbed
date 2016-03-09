@@ -1,6 +1,6 @@
 {
-  "name": "sintattica/atk-skeleton",
-  "description": "ATK Skeleton",
+  "name": "sintattica/atk-testbed",
+  "description": "ATK Testbed",
   "type": "library",
   "license": "MIT",
   "keywords": [
