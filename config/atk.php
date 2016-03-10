@@ -6,7 +6,7 @@ return [
     /**
      * change identifier to unique string
      */
-    'identifier' => 'atk-skeleton',
+    'identifier' => 'atk-testbed',
 
     'language_basedir' => $_baseDir . 'src/languages/',
 
@@ -19,10 +19,8 @@ return [
     'language' => 'it',
 
     'authentication' => 'db',
-    'authentication_md5' => false,
-    'auth_usecryptedpassword' => false,
+    'auth_usecryptedpassword' => true,
     'restrictive' => true,
-    'authentication_cookie' => false,
 
     /** Security database configuration **/
     'securityscheme' => 'group',
