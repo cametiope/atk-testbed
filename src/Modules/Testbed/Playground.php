@@ -68,7 +68,25 @@ class Playground extends Node
         /** tab ************************/
         $tab = 'default';
 
+
         $this->add(new Attribute('id', A::AF_AUTOKEY), $tab);
+
+
+        // $attr = new ManyToOneRelation('FM2O', $this->getModule() . '.m2o_node', A::AF_SEARCHABLE);
+       // $attr->setAutoCompleteMinRecords(-1);
+        //$attr->addOnChangeHandler('console.log("onchange triggered!");');
+       // $this->add($attr);
+
+
+        //$attr = new ListAttribute('ListAttribute', ['option_1', 'option_2', 'option_3'], [1, 2, 3], ListAttribute::AF_LIST_OBLIGATORY_NULL_ITEM|A::AF_OBLIGATORY);
+        //$attr->expandAsButtons();
+        //$attr->setEmptyValue(-1);
+        //$this->add($attr, $tab);
+        $this->add(new MultiSelectAttribute('MultiSelectAttribute', ['option1', 'option2', 'option3'], ['option1val', 'option2val', 'option3val'], A::AF_SEARCHABLE), $tab);
+
+        return;
+
+        /*
         $this->add(new Attribute('Attribute'), $tab);
         $this->add(new BoolAttribute('BoolAttribute'), $tab);
         $this->add(new CalculatorAttribute('CalculatorAttribute', '10*5'), $tab);
@@ -77,11 +95,13 @@ class Playground extends Node
         $this->add(new CountryAttribute('CountryAttribute'), $tab);
         $this->add(new CreatedByAttribute('CreatedByAttribute'), $tab);
         $this->add(new CreateStampAttribute('CreateStampAttribute'), $tab);
-
+*/
 
         /** tab ************************/
         $tab = "tab_2";
 
+
+        
         $this->add(new CurrencyAttribute('CurrencyAttribute'), $tab);
         $this->add(new DateAttribute('DateAttribute'), $tab);
         $this->add(new DateTimeAttribute('DateTimeAttribute'), $tab);
@@ -90,7 +110,7 @@ class Playground extends Node
         $this->add(new EmailAttribute('EmailAttribute'), $tab);
         $this->add(new ExpressionAttribute('ExpressionAttribute', 'SELECT "test expression"'), $tab);
         $this->add(new IpAttribute('IpAttribute'), $tab);
-        $this->add(new ListAttribute('ListAttribute', ['option_1', 'option_2', 'option_3'], [1, 2, 3]), $tab);
+
 
 
         /** tab ************************/
@@ -117,7 +137,7 @@ class Playground extends Node
         $this->add(new Attribute('LiveTextPreviewAttributeMaster'), $tab);
         $this->add(new LiveTextPreviewAttribute('LiveTextPreviewAttribute', 'LiveTextPreviewAttributeMaster'), $tab);
         $this->add(new MultipleFileAttribute('MultipleFileAttribute', [Config::getGlobal('application_dir') . 'web/multiplefiles/', '/multiplefiles/']), $tab);
-        $this->add(new MultiSelectAttribute('MultiSelectAttribute', ['option1', 'option2', 'option3']), $tab);
+
         $this->add(new NumberAttribute('NumberAttribute', 0, 20, 2), $tab);
         $this->add(new ParserAttribute('ParserAttribute', 'NumberAttribute is: [NumberAttribute]'), $tab);
         $this->add(new PasswordAttribute('PasswordAttribute'), $tab);
@@ -159,12 +179,13 @@ class Playground extends Node
 
         $this->add(new OneToManyRelation('OneToManyRelation', $this->getModule() . '.o2m_node', 'playground_id'), $tab);
 
-        $this->add(new ManyToOneRelation('ManyToOneRelation', $this->getModule() . '.m2o_node'), $tab);
+
 
         $rel = new ShuttleRelation('ShuttleRelation', $this->getModule() . '.m2m_node', $this->getModule() . '.m2o_node');
         $rel->setLocalKey('playground_id');
         $rel->setRemoteKey('remotetable_id');
         $this->add($rel, $tab);
-
     }
+
+
 }
