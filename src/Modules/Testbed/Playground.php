@@ -4,6 +4,7 @@ namespace App\Modules\Testbed;
 
 use Sintattica\Atk\Core\Config;
 use Sintattica\Atk\Core\Node;
+use Sintattica\Atk\Core\Tools;
 
 use Sintattica\Atk\Attributes\Attribute;
 use Sintattica\Atk\Attributes\Attribute as A;
@@ -63,8 +64,7 @@ class Playground extends Node
         parent::__construct($nodeUri, Node::NF_ADD_LINK);
 
         $this->setTable('testbed_Playground');
-
-
+        
         /** tab ************************/
         $tab = 'default';
 
