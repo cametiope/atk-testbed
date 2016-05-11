@@ -20,6 +20,9 @@ return [
 
     'authentication' => 'db',
     'auth_usecryptedpassword' => true,
+
+    'auth_enable_rememberme' => true,
+
     'restrictive' => true,
 
     /** Security database configuration **/
@@ -35,4 +38,6 @@ return [
     'auth_leveltable' => 'Users_Groups',
     'auth_levelfield' => 'group_id',
     'auth_accesstable' => 'AccessRights',
+
+    'use_atkerrorhandler' => false,
 ];

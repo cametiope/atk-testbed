@@ -71,58 +71,53 @@ class Playground extends Node
 
         $this->add(new Attribute('id', A::AF_AUTOKEY), $tab);
 
+        $attr = new ManyToOneRelation('FM2O', A::AF_SEARCHABLE|A::AF_LARGE, $this->getModule().'.m2o_node');
+        $attr->addDestinationFilter('id = 1');
 
-        // $attr = new ManyToOneRelation('FM2O', $this->getModule() . '.m2o_node', A::AF_SEARCHABLE);
-       // $attr->setAutoCompleteMinRecords(-1);
-        //$attr->addOnChangeHandler('console.log("onchange triggered!");');
-       // $this->add($attr);
+        $attr->addOnChangeHandler('console.log("onchange triggered!");');
+        $this->add($attr);
+
+        $attr = new ListAttribute('ListAttribute', ListAttribute::AF_LIST_OBLIGATORY_NULL_ITEM|A::AF_OBLIGATORY|A::AF_SEARCHABLE, ['option_1', 'option_2', 'option_3'], [1, 2, 3]);
+        $attr->expandAsButtons();
+        $attr->setEmptyValue(-1);
+        $this->add($attr, $tab);
+        $this->add(new MultiSelectAttribute('MultiSelectAttribute', A::AF_SEARCHABLE, ['option1', 'option2', 'option3'], ['option1val', 'option2val', 'option3val']), $tab);
 
 
-        //$attr = new ListAttribute('ListAttribute', ['option_1', 'option_2', 'option_3'], [1, 2, 3], ListAttribute::AF_LIST_OBLIGATORY_NULL_ITEM|A::AF_OBLIGATORY);
-        //$attr->expandAsButtons();
-        //$attr->setEmptyValue(-1);
-        //$this->add($attr, $tab);
-        $this->add(new MultiSelectAttribute('MultiSelectAttribute', ['option1', 'option2', 'option3'], ['option1val', 'option2val', 'option3val'], A::AF_SEARCHABLE), $tab);
-
-        return;
-
-        /*
         $this->add(new Attribute('Attribute'), $tab);
         $this->add(new BoolAttribute('BoolAttribute'), $tab);
-        $this->add(new CalculatorAttribute('CalculatorAttribute', '10*5'), $tab);
+        $this->add(new CalculatorAttribute('CalculatorAttribute', 0, '10*5'), $tab);
         $this->add(new CkAttribute('CkAttribute'), $tab);
         $this->add(new ColorPickerAttribute('ColorPickerAttribute'), $tab);
         $this->add(new CountryAttribute('CountryAttribute'), $tab);
         $this->add(new CreatedByAttribute('CreatedByAttribute'), $tab);
         $this->add(new CreateStampAttribute('CreateStampAttribute'), $tab);
-*/
+
 
         /** tab ************************/
         $tab = "tab_2";
 
 
-        
         $this->add(new CurrencyAttribute('CurrencyAttribute'), $tab);
         $this->add(new DateAttribute('DateAttribute'), $tab);
         $this->add(new DateTimeAttribute('DateTimeAttribute'), $tab);
         $this->add(new DummyAttribute('DummyAttribute'), $tab);
         $this->add(new DurationAttribute('DurationAttribute'), $tab);
         $this->add(new EmailAttribute('EmailAttribute'), $tab);
-        $this->add(new ExpressionAttribute('ExpressionAttribute', 'SELECT "test expression"'), $tab);
+        //$this->add(new ExpressionAttribute('ExpressionAttribute', 'SELECT "test expression"'), $tab);
         $this->add(new IpAttribute('IpAttribute'), $tab);
-
 
 
         /** tab ************************/
         $tab = "tab_3";
 
-        $this->add(new DummyAttribute('FieldSet_dummy1', 'FieldSet_dummy1_content', A::AF_NO_LABEL), $tab);
-        $this->add(new DummyAttribute('FieldSet_dummy2', 'FieldSet_dummy2_content', A::AF_NO_LABEL), $tab);
-        $this->add(new FieldSet('FieldSet', '[FieldSet_dummy1] e [FieldSet_dummy2]'), $tab);
-        $this->add(new FileAttribute('FileAttribute', [Config::getGlobal('application_dir') . 'web/files/', '/files/']), $tab);
-        $this->add(new FileWriterAttribute('FileWriterAttribute', Config::getGlobal('application_dir') . 'web/files/filewriterfile.txt'), $tab);
-        $this->add(new FlagAttribute('FlagAttribute', ['option_with_1', 'option_with_2', 'option_with_4'], [1, 2, 4]), $tab);
-        $this->add(new FormatAttribute('FormatAttribute', 'AAA/##/##'), $tab);
+        $this->add(new DummyAttribute('FieldSet_dummy1', A::AF_NO_LABEL, 'FieldSet_dummy1_content'), $tab);
+        $this->add(new DummyAttribute('FieldSet_dummy2', A::AF_NO_LABEL, 'FieldSet_dummy2_content'), $tab);
+        $this->add(new FieldSet('FieldSet', 0, '[FieldSet_dummy1] e [FieldSet_dummy2]'), $tab);
+        $this->add(new FileAttribute('FileAttribute', 0, [Config::getGlobal('application_dir').'web/files/', '/files/']), $tab);
+        $this->add(new FileWriterAttribute('FileWriterAttribute', 0, Config::getGlobal('application_dir').'web/files/filewriterfile.txt'), $tab);
+        $this->add(new FlagAttribute('FlagAttribute', 0, ['option_with_1', 'option_with_2', 'option_with_4'], [1, 2, 4]), $tab);
+        $this->add(new FormatAttribute('FormatAttribute', 0, 'AAA/##/##'), $tab);
 
         //TODO: FuzzySearchAttribute: test
         // $this->add(new FuzzySearchAttribute('FuzzySearchAttribute'), $tab);
@@ -135,18 +130,13 @@ class Playground extends Node
         $tab = "tab_4";
 
         $this->add(new Attribute('LiveTextPreviewAttributeMaster'), $tab);
-        $this->add(new LiveTextPreviewAttribute('LiveTextPreviewAttribute', 'LiveTextPreviewAttributeMaster'), $tab);
-        $this->add(new MultipleFileAttribute('MultipleFileAttribute', [Config::getGlobal('application_dir') . 'web/multiplefiles/', '/multiplefiles/']), $tab);
+        $this->add(new LiveTextPreviewAttribute('LiveTextPreviewAttribute', 0, 'LiveTextPreviewAttributeMaster'), $tab);
+        $this->add(new MultipleFileAttribute('MultipleFileAttribute', 0, [Config::getGlobal('application_dir').'web/multiplefiles/', '/multiplefiles/']), $tab);
 
         $this->add(new NumberAttribute('NumberAttribute', 0, 20, 2), $tab);
-        $this->add(new ParserAttribute('ParserAttribute', 'NumberAttribute is: [NumberAttribute]'), $tab);
+        $this->add(new ParserAttribute('ParserAttribute', 0, 'NumberAttribute is: [NumberAttribute]'), $tab);
         $this->add(new PasswordAttribute('PasswordAttribute'), $tab);
-        $this->add(new RadioAttribute('RadioAttribute', ['option_1', 'option_2', 'option_3']), $tab);
-
-        //TODO: RadioDetailsAttribute: how does it work?
-        //$this->add(new Attribute('RadioDetailsAttributeDetail2'), $tab);
-        //$this->add(new RadioDetailsAttribute('RadioDetailsAttribute', ['option_1', 'option_2' => 'RadioDetailsAttributeDetail2', 'option_3'], ['RadioDetailsAttributeDetail2', 'NumberAttribute']), $tab);
-
+        $this->add(new RadioAttribute('RadioAttribute', 0, ['option_1', 'option_2', 'option_3']), $tab);
 
         /** tab ************************/
         $tab = "tab_5";
@@ -175,13 +165,12 @@ class Playground extends Node
         /** tab ************************/
         $tab = "tab_6";
 
-        $this->add(new OneToOneRelation('OneToOneRelation', $this->getModule() . '.o2o_node', 'playground_id'), $tab);
+        $this->add(new OneToOneRelation('OneToOneRelation', 0, $this->getModule().'.o2o_node', 'playground_id'), $tab);
 
-        $this->add(new OneToManyRelation('OneToManyRelation', $this->getModule() . '.o2m_node', 'playground_id'), $tab);
+        $this->add(new OneToManyRelation('OneToManyRelation', 0, $this->getModule().'.o2m_node', 'playground_id'), $tab);
 
 
-
-        $rel = new ShuttleRelation('ShuttleRelation', $this->getModule() . '.m2m_node', $this->getModule() . '.m2o_node');
+        $rel = new ShuttleRelation('ShuttleRelation', 0, $this->getModule().'.m2m_node', $this->getModule().'.m2o_node');
         $rel->setLocalKey('playground_id');
         $rel->setRemoteKey('remotetable_id');
         $this->add($rel, $tab);

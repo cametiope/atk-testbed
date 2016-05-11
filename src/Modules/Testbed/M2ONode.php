@@ -14,8 +14,15 @@ class M2ONode extends Node {
         $this->setSecurityAlias($this->getModule().'.playground');
 
         $this->add(new Attribute('id', Attribute::AF_AUTOKEY));
-        $this->add(new Attribute('m2o_name'));
+        $this->add(new Attribute('m2o_name', Attribute::AF_FORCE_LOAD));
 
-        $this->setDescriptorTemplate('[m2o_name]');
+        //$this->setDescriptorTemplate('[m2o_name]');
+        $this->setDescriptorHandler($this);
+    }
+
+    public function descriptor($record)
+    {
+
+        return $record['m2o_name'];
     }
 }
