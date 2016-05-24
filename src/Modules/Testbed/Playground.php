@@ -71,6 +71,10 @@ class Playground extends Node
 
         $this->add(new Attribute('id', A::AF_AUTOKEY), $tab);
 
+        $this->add(new ExpressionAttribute('ExpressionAttribute', A::AF_SEARCHABLE, 'SELECT 5', 'number'), $tab);
+
+        return true;
+
         $attr = new ManyToOneRelation('FM2O', A::AF_SEARCHABLE|A::AF_LARGE, $this->getModule().'.m2o_node');
         $attr->addDestinationFilter('id = 1');
 
@@ -104,7 +108,7 @@ class Playground extends Node
         $this->add(new DummyAttribute('DummyAttribute'), $tab);
         $this->add(new DurationAttribute('DurationAttribute'), $tab);
         $this->add(new EmailAttribute('EmailAttribute'), $tab);
-        //$this->add(new ExpressionAttribute('ExpressionAttribute', 'SELECT "test expression"'), $tab);
+        //$this->add(new ExpressionAttribute('ExpressionAttribute', 0, 'SELECT "test expression"'), $tab);
         $this->add(new IpAttribute('IpAttribute'), $tab);
 
 
