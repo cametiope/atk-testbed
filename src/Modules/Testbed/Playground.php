@@ -5,6 +5,7 @@ namespace App\Modules\Testbed;
 use Sintattica\Atk\Core\Config;
 use Sintattica\Atk\Core\Node;
 use Sintattica\Atk\Core\Tools;
+use Sintattica\Atk\Utils\EditFormModifier;
 
 use Sintattica\Atk\Attributes\Attribute;
 use Sintattica\Atk\Attributes\Attribute as A;
@@ -59,33 +60,90 @@ use Sintattica\Atk\Relations\ShuttleRelation;
 
 class Playground extends Node
 {
+    function theListAttributeDependency(EditFormModifier $modifier)
+    {
+        $record = &$modifier->getRecord();
+        $record['theListAttribute2'] = 5;
+        $modifier->refreshAttribute('theListAttribute2');
+        //print_r($modifier->getNode());//->getAttribute('theListAttribute2'));
+        /*$modifier->hideAttribute('theListAttribute2');
+
+         $record = &$modifier->getRecord();
+
+         if($record['theListAttribute'] == 2 &&  !$modifier->isInitial()){
+             $modifier->showAttribute('theListAttribute2');
+             $modifier->refreshAttribute('theListAttribute2');
+         }*/
+    }
+
     function __construct($nodeUri)
     {
         parent::__construct($nodeUri, Node::NF_ADD_LINK);
 
         $this->setTable('testbed_Playground');
-        
+
         /** tab ************************/
         $tab = 'default';
 
 
         $this->add(new Attribute('id', A::AF_AUTOKEY), $tab);
 
-        $this->add(new ExpressionAttribute('ExpressionAttribute', A::AF_SEARCHABLE, 'SELECT 5', 'number'), $tab);
+        $this->add(new PasswordAttribute('PasswordAttribute', PasswordAttribute::AF_PASSWORD_NO_VALIDATE, true, ['minnumbers' => 2, 'minalphabeticchars' => 6]), $tab);
 
         return true;
 
-        $attr = new ManyToOneRelation('FM2O', A::AF_SEARCHABLE|A::AF_LARGE, $this->getModule().'.m2o_node');
-        $attr->addDestinationFilter('id = 1');
 
-        $attr->addOnChangeHandler('console.log("onchange triggered!");');
-        $this->add($attr);
-
-        $attr = new ListAttribute('ListAttribute', ListAttribute::AF_LIST_OBLIGATORY_NULL_ITEM|A::AF_OBLIGATORY|A::AF_SEARCHABLE, ['option_1', 'option_2', 'option_3'], [1, 2, 3]);
-        $attr->expandAsButtons();
-        $attr->setEmptyValue(-1);
+        $attr = new ListAttribute('theListAttribute2', ListAttribute::AF_LIST_OBLIGATORY_NULL_ITEM | A::AF_OBLIGATORY | A::AF_SEARCHABLE,
+            ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]);
         $this->add($attr, $tab);
-        $this->add(new MultiSelectAttribute('MultiSelectAttribute', A::AF_SEARCHABLE, ['option1', 'option2', 'option3'], ['option1val', 'option2val', 'option3val']), $tab);
+
+        $attr = new ManyToOneRelation('FM2O', A::AF_SEARCHABLE, $this->getModule().'.m2o_node');
+        // $attr->addDestinationFilter('id = 1');
+        // $attr->setAutoSearch(true);
+        // $attr->addOnChangeHandler('console.log("onchange triggered!");');
+        $attr->addDependency([$this, 'theListAttributeDependency']);
+        $this->add($attr, $tab);
+
+
+        $this->add(new OneToManyRelation('the1OneToManyRelation', A::AF_SEARCHABLE, $this->getModule().'.o2m_node', 'playground_id'), $tab);
+        $this->add(new OneToManyRelation('the2OneToManyRelation', A::AF_SEARCHABLE, $this->getModule().'.o2m_node2', 'playground_id'), $tab);
+
+
+        for ($i = 0; $i < 10; $i++) {
+
+            $this->add(new ExpressionAttribute('ExpressionAttribute'.$i, A::AF_SEARCHABLE, 'SELECT 5', 'number'), $tab);
+        }
+
+        return;
+
+        //$tab = 'tab_2';
+
+        $attr = new ListAttribute('theListAttribute', ListAttribute::AF_LIST_OBLIGATORY_NULL_ITEM | A::AF_OBLIGATORY | A::AF_SEARCHABLE,
+            ['option_1', 'option_2', 'option_3'], [1, 2, 3]);
+        $attr->addDependency([$this, 'theListAttributeDependency']);
+        $this->add($attr, $tab);
+
+
+        $attr = new DateAttribute('theDateAttribute', A::AF_SEARCHABLE);
+        $attr->addOnChangeHandler('console.log("theDateTimeAttribute onchange triggered!");');
+        $this->add($attr, $tab);
+
+        return;
+
+
+        $attr = new DateTimeAttribute('theDateTimeAttribute', A::AF_SEARCHABLE);
+
+
+        //$attr->setEmptyValue(-1);
+        $attr->setAutoSearch(true);
+
+        $attr->addOnChangeHandler("console.log(el);");
+
+        $this->add($attr, $tab);
+
+
+        $this->add(new MultiSelectAttribute('MultiSelectAttribute', A::AF_SEARCHABLE, ['option1', 'option2', 'option3'],
+            ['option1val', 'option2val', 'option3val']), $tab);
 
 
         $this->add(new Attribute('Attribute'), $tab);
@@ -103,8 +161,7 @@ class Playground extends Node
 
 
         $this->add(new CurrencyAttribute('CurrencyAttribute'), $tab);
-        $this->add(new DateAttribute('DateAttribute'), $tab);
-        $this->add(new DateTimeAttribute('DateTimeAttribute'), $tab);
+
         $this->add(new DummyAttribute('DummyAttribute'), $tab);
         $this->add(new DurationAttribute('DurationAttribute'), $tab);
         $this->add(new EmailAttribute('EmailAttribute'), $tab);
@@ -170,8 +227,6 @@ class Playground extends Node
         $tab = "tab_6";
 
         $this->add(new OneToOneRelation('OneToOneRelation', 0, $this->getModule().'.o2o_node', 'playground_id'), $tab);
-
-        $this->add(new OneToManyRelation('OneToManyRelation', 0, $this->getModule().'.o2m_node', 'playground_id'), $tab);
 
 
         $rel = new ShuttleRelation('ShuttleRelation', 0, $this->getModule().'.m2m_node', $this->getModule().'.m2o_node');

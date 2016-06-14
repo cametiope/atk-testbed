@@ -15,6 +15,7 @@ class Module extends \Sintattica\Atk\Core\Module
         $this->registerNode('playground', Playground::class, ['admin', 'add', 'edit', 'delete']);
         $this->registerNode('o2o_node', O2ONode::class);
         $this->registerNode('o2m_node', O2MNode::class);
+        $this->registerNode('o2m_node2', O2MNode2::class);
         $this->registerNode('m2o_node', M2ONode::class);
         $this->registerNode('m2m_node', M2MNode::class);
 

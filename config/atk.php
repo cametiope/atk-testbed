@@ -39,5 +39,7 @@ return [
     'auth_levelfield' => 'group_id',
     'auth_accesstable' => 'AccessRights',
 
-    'use_atkerrorhandler' => false,
+    'use_atkerrorhandler' => true,
+
+    //'mailreport' => 'michele.rota@sintattica.it',
 ];

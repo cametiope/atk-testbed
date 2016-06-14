@@ -12,9 +12,7 @@ class TestNode extends Node
     function __construct($nodeUri)
     {
 
-        print_r(Config::get('app', 'pippo'));die;
-
-        parent::__construct($nodeUri, Node::NF_ADD_LINK | Node::NF_EDITAFTERADD);
+        parent::__construct($nodeUri, Node::NF_ADD_LINK | Node::NF_EDITAFTERADD | Node::NF_IMPORT);
         $this->setTable('TestNode');
 
         $this->add(new Attribute('id', Attribute::AF_AUTOKEY));
@@ -22,7 +20,5 @@ class TestNode extends Node
         $this->add(new TextAttribute('description'));
 
         $this->setDescriptorTemplate('[name]');
-        
-        $this->addDb()
     }
 }
