@@ -2,6 +2,7 @@
 
 namespace App\Modules\App;
 
+use Sintattica\Atk\Core\Atk;
 use Sintattica\Atk\Core\Config;
 use Sintattica\Atk\Core\Node;
 use Sintattica\Atk\Attributes\Attribute;

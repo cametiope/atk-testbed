@@ -81,21 +81,42 @@ class Playground extends Node
         parent::__construct($nodeUri, Node::NF_ADD_LINK);
 
         $this->setTable('testbed_Playground');
+        $this->add(new Attribute('id', A::AF_AUTOKEY));
 
         /** tab ************************/
         $tab = 'default';
 
 
-        $this->add(new Attribute('id', A::AF_AUTOKEY), $tab);
+        //test tabbed pane
 
-        $this->add(new PasswordAttribute('PasswordAttribute', PasswordAttribute::AF_PASSWORD_NO_VALIDATE, true, ['minnumbers' => 2, 'minalphabeticchars' => 6]), $tab);
+        $this->add(new Attribute('Attribute'), $tab);
+        $this->add(new BoolAttribute('BoolAttribute'), $tab);
+        $this->add(new CalculatorAttribute('CalculatorAttribute', 0, '10*5'), $tab);
+
+        $this->add(new TabbedPane('tabbedpane', 0, ['tab1' => ['Attribute'], 'tab2' => ['BoolAttribute', 'CalculatorAttribute']]));
+
+        $attr = new ListAttribute('theListAttribute2', A::AF_OBLIGATORY | A::AF_SEARCHABLE,
+            ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]);
+        $this->add($attr, 'tab2');
+
+
 
         return true;
 
 
-        $attr = new ListAttribute('theListAttribute2', ListAttribute::AF_LIST_OBLIGATORY_NULL_ITEM | A::AF_OBLIGATORY | A::AF_SEARCHABLE,
+
+
+// ListAttribute::AF_LIST_OBLIGATORY_NULL_ITEM |
+        $attr = new ListAttribute('theListAttribute2', A::AF_OBLIGATORY | A::AF_SEARCHABLE,
             ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]);
         $this->add($attr, $tab);
+
+        //$this->add(new PasswordAttribute('PasswordAttribute', PasswordAttribute::AF_PASSWORD_NO_VALIDATE, true, ['minnumbers' => 2, 'minalphabeticchars' => 6]), $tab);
+
+        return true;
+
+
+
 
         $attr = new ManyToOneRelation('FM2O', A::AF_SEARCHABLE, $this->getModule().'.m2o_node');
         // $attr->addDestinationFilter('id = 1');

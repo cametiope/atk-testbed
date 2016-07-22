@@ -18,6 +18,8 @@ return [
 
     'language' => 'it',
 
+    'debug' => 0,
+
     'authentication' => 'db',
     'auth_usecryptedpassword' => true,
 
