@@ -97,7 +97,7 @@ class Playground extends Node
 
         $attr = new ListAttribute('theListAttribute2', A::AF_OBLIGATORY | A::AF_SEARCHABLE,
             ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]);
-        $this->add($attr, 'tab2');
+        $this->add($attr);
 
 
 
