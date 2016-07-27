@@ -2,6 +2,7 @@
 
 namespace App\Modules\Testbed;
 
+use Sintattica\Atk\Attributes\MultiSelectListAttribute;
 use Sintattica\Atk\Core\Config;
 use Sintattica\Atk\Core\Node;
 use Sintattica\Atk\Core\Tools;
@@ -63,17 +64,19 @@ class Playground extends Node
     function theListAttributeDependency(EditFormModifier $modifier)
     {
         $record = &$modifier->getRecord();
+        /*
         $record['theListAttribute2'] = 5;
         $modifier->refreshAttribute('theListAttribute2');
+        */
         //print_r($modifier->getNode());//->getAttribute('theListAttribute2'));
-        /*$modifier->hideAttribute('theListAttribute2');
+        $modifier->hideAttribute('theListAttribute2');
 
          $record = &$modifier->getRecord();
 
-         if($record['theListAttribute'] == 2 &&  !$modifier->isInitial()){
+         if($record['theListAttribute'] == 4 &&  !$modifier->isInitial()){
              $modifier->showAttribute('theListAttribute2');
              $modifier->refreshAttribute('theListAttribute2');
-         }*/
+         }
     }
 
     function __construct($nodeUri)
@@ -89,16 +92,54 @@ class Playground extends Node
 
         //test tabbed pane
 
+
+
         $this->add(new Attribute('Attribute'), $tab);
         $this->add(new BoolAttribute('BoolAttribute'), $tab);
         $this->add(new CalculatorAttribute('CalculatorAttribute', 0, '10*5'), $tab);
 
-        $this->add(new TabbedPane('tabbedpane', 0, ['tab1' => ['Attribute'], 'tab2' => ['BoolAttribute', 'CalculatorAttribute']]));
+        $attr = new DateTimeAttribute('theDateAttribute', A::AF_SEARCHABLE);
+        $attr->addOnChangeHandler('console.log("theDateTimeAttribute onchange triggered!");');
+        $this->add($attr, 'default');
 
-        $attr = new ListAttribute('theListAttribute2', A::AF_OBLIGATORY|A::AF_SEARCHABLE,
+       // $this->add(new MultiSelectAttribute('MultiSelectAttribute', A::AF_SEARCHABLE, ['option1', 'option2', 'option3'],
+       //     ['option1val', 'option2val', 'option3val']), $tab);
+
+
+        $attr = new ListAttribute('theListAttribute', A::AF_SEARCHABLE,
             ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]);
+       // $attr->setWidth('300px');
+        $attr->addDependency([$this, 'theListAttributeDependency']);
+        $this->add($attr, $tab);
+        $this->add($attr);
+
+        $attr = new ListAttribute('theListAttribute2', A::AF_SEARCHABLE,
+            ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]);
+        // $attr->setWidth('300px');
+        $this->add($attr);
+
+        $attr = new ManyToOneRelation('FM2O', A::AF_LARGE|A::AF_SEARCHABLE, $this->getModule().'.m2o_node');
+        $attr->setWidth('300px');
+        //$attr->addDestinationFilter('id = 1');
+        // $attr->setAutoSearch(true);
+        //$attr->addOnChangeHandler('console.log("onchange triggered!");');
+        //$attr->addDependency([$this, 'theListAttributeDependency']);
         $this->add($attr, 'tab2');
 
+        /*
+        $attr = new MultiSelectListAttribute('theMultiSelectListAttribute', A::AF_SEARCHABLE,
+            ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]);
+        //$attr->setWidth('300px');
+        $this->add($attr);
+
+
+        $this->add(new TabbedPane('tabbedpane', 0, ['tab1' => ['Attribute'], 'tab2' => ['BoolAttribute', 'CalculatorAttribute', 'theListAttribute2']]));
+
+
+
+
+
+*/
 
 
         return true;
@@ -118,12 +159,7 @@ class Playground extends Node
 
 
 
-        $attr = new ManyToOneRelation('FM2O', A::AF_SEARCHABLE, $this->getModule().'.m2o_node');
-        // $attr->addDestinationFilter('id = 1');
-        // $attr->setAutoSearch(true);
-        // $attr->addOnChangeHandler('console.log("onchange triggered!");');
-        $attr->addDependency([$this, 'theListAttributeDependency']);
-        $this->add($attr, $tab);
+
 
 
         $this->add(new OneToManyRelation('the1OneToManyRelation', A::AF_SEARCHABLE, $this->getModule().'.o2m_node', 'playground_id'), $tab);
@@ -145,9 +181,7 @@ class Playground extends Node
         $this->add($attr, $tab);
 
 
-        $attr = new DateAttribute('theDateAttribute', A::AF_SEARCHABLE);
-        $attr->addOnChangeHandler('console.log("theDateTimeAttribute onchange triggered!");');
-        $this->add($attr, $tab);
+
 
         return;
 
@@ -163,8 +197,7 @@ class Playground extends Node
         $this->add($attr, $tab);
 
 
-        $this->add(new MultiSelectAttribute('MultiSelectAttribute', A::AF_SEARCHABLE, ['option1', 'option2', 'option3'],
-            ['option1val', 'option2val', 'option3val']), $tab);
+
 
 
         $this->add(new Attribute('Attribute'), $tab);
