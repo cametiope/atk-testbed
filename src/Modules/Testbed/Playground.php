@@ -98,6 +98,7 @@ class Playground extends Node
         $this->add(new BoolAttribute('BoolAttribute'), $tab);
         $this->add(new CalculatorAttribute('CalculatorAttribute', 0, '10*5'), $tab);
 
+
         $attr = new DateTimeAttribute('theDateAttribute', A::AF_SEARCHABLE);
         $attr->addOnChangeHandler('console.log("theDateTimeAttribute onchange triggered!");');
         $this->add($attr, 'default');
@@ -108,23 +109,23 @@ class Playground extends Node
 
         $attr = new ListAttribute('theListAttribute', A::AF_SEARCHABLE,
             ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]);
-       // $attr->setWidth('300px');
+        $attr->setWidth('300px');
         $attr->addDependency([$this, 'theListAttributeDependency']);
-        $this->add($attr, $tab);
-        $this->add($attr);
+        $this->add($attr, "tab2");
 
         $attr = new ListAttribute('theListAttribute2', A::AF_SEARCHABLE,
             ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]);
-        // $attr->setWidth('300px');
+        $attr->setWidth('300px');
         $this->add($attr);
 
+
         $attr = new ManyToOneRelation('FM2O', A::AF_LARGE|A::AF_SEARCHABLE, $this->getModule().'.m2o_node');
-        $attr->setWidth('300px');
+        //attr->setWidth('300px');
         //$attr->addDestinationFilter('id = 1');
         // $attr->setAutoSearch(true);
         //$attr->addOnChangeHandler('console.log("onchange triggered!");');
         //$attr->addDependency([$this, 'theListAttributeDependency']);
-        $this->add($attr, 'tab2');
+        $this->add($attr);
 
         /*
         $attr = new MultiSelectListAttribute('theMultiSelectListAttribute', A::AF_SEARCHABLE,
