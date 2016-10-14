@@ -18,7 +18,7 @@ return [
 
     'language' => 'it',
 
-    'debug' => 0,
+    'debug' => 1,
 
     'authentication' => 'db',
     'auth_usecryptedpassword' => true,
@@ -42,6 +42,5 @@ return [
     'auth_accesstable' => 'AccessRights',
 
     'use_atkerrorhandler' => true,
-
     //'mailreport' => 'michele.rota@sintattica.it',
 ];
