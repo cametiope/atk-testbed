@@ -42,5 +42,7 @@ return [
     'auth_accesstable' => 'AccessRights',
 
     'use_atkerrorhandler' => true,
+
+    'meta_caching' => false,
     //'mailreport' => 'michele.rota@sintattica.it',
 ];

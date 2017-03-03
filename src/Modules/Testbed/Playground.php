@@ -2,12 +2,6 @@
 
 namespace App\Modules\Testbed;
 
-use Sintattica\Atk\Attributes\MultiSelectListAttribute;
-use Sintattica\Atk\Core\Config;
-use Sintattica\Atk\Core\Node;
-use Sintattica\Atk\Core\Tools;
-use Sintattica\Atk\Utils\EditFormModifier;
-
 use Sintattica\Atk\Attributes\Attribute;
 use Sintattica\Atk\Attributes\Attribute as A;
 use Sintattica\Atk\Attributes\BoolAttribute;
@@ -18,7 +12,6 @@ use Sintattica\Atk\Attributes\CountryAttribute;
 use Sintattica\Atk\Attributes\CreatedByAttribute;
 use Sintattica\Atk\Attributes\CreateStampAttribute;
 use Sintattica\Atk\Attributes\CurrencyAttribute;
-use Sintattica\Atk\Attributes\DateAttribute;
 use Sintattica\Atk\Attributes\DateTimeAttribute;
 use Sintattica\Atk\Attributes\DummyAttribute;
 use Sintattica\Atk\Attributes\DurationAttribute;
@@ -29,24 +22,19 @@ use Sintattica\Atk\Attributes\FileAttribute;
 use Sintattica\Atk\Attributes\FileWriterAttribute;
 use Sintattica\Atk\Attributes\FlagAttribute;
 use Sintattica\Atk\Attributes\FormatAttribute;
-use Sintattica\Atk\Attributes\FuzzySearchAttribute;
 use Sintattica\Atk\Attributes\HiddenAttribute;
 use Sintattica\Atk\Attributes\HtmlAttribute;
 use Sintattica\Atk\Attributes\IpAttribute;
 use Sintattica\Atk\Attributes\ListAttribute;
 use Sintattica\Atk\Attributes\LiveTextPreviewAttribute;
 use Sintattica\Atk\Attributes\MultipleFileAttribute;
-use Sintattica\Atk\Attributes\MultiSelectAttribute;
 use Sintattica\Atk\Attributes\NumberAttribute;
 use Sintattica\Atk\Attributes\ParserAttribute;
 use Sintattica\Atk\Attributes\PasswordAttribute;
 use Sintattica\Atk\Attributes\RadioAttribute;
-use Sintattica\Atk\Attributes\RadioDetailsAttribute;
 use Sintattica\Atk\Attributes\RowCounterAttribute;
 use Sintattica\Atk\Attributes\StateAttribute;
 use Sintattica\Atk\Attributes\SwitchAttribute;
-use Sintattica\Atk\Attributes\TabbedPane;
-use Sintattica\Atk\Attributes\TagAttribute;
 use Sintattica\Atk\Attributes\TextAttribute;
 use Sintattica\Atk\Attributes\TimeAttribute;
 use Sintattica\Atk\Attributes\TimeZoneAttribute;
@@ -54,14 +42,18 @@ use Sintattica\Atk\Attributes\UpdatedByAttribute;
 use Sintattica\Atk\Attributes\UpdateStampAttribute;
 use Sintattica\Atk\Attributes\UrlAttribute;
 use Sintattica\Atk\Attributes\WeekdayAttribute;
+use Sintattica\Atk\Core\Atk;
+use Sintattica\Atk\Core\Config;
+use Sintattica\Atk\Core\Node;
 use Sintattica\Atk\Relations\ManyToOneRelation;
 use Sintattica\Atk\Relations\OneToManyRelation;
 use Sintattica\Atk\Relations\OneToOneRelation;
 use Sintattica\Atk\Relations\ShuttleRelation;
+use Sintattica\Atk\Utils\EditFormModifier;
 
 class Playground extends Node
 {
-    function theListAttributeDependency(EditFormModifier $modifier)
+    public function theListAttributeDependency(EditFormModifier $modifier)
     {
         $record = &$modifier->getRecord();
         /*
@@ -71,20 +63,46 @@ class Playground extends Node
         //print_r($modifier->getNode());//->getAttribute('theListAttribute2'));
         $modifier->hideAttribute('theListAttribute2');
 
-         $record = &$modifier->getRecord();
+        $record = &$modifier->getRecord();
 
-         if($record['theListAttribute'] == 4 &&  !$modifier->isInitial()){
-             $modifier->showAttribute('theListAttribute2');
-             $modifier->refreshAttribute('theListAttribute2');
-         }
+        if ($record['theListAttribute'] == 4 && !$modifier->isInitial()) {
+            $modifier->showAttribute('theListAttribute2');
+            $modifier->refreshAttribute('theListAttribute2');
+        }
     }
 
-    function __construct($nodeUri)
+    public function action_updateattributes()
+    {
+        $node = Atk::getInstance()->atkGetNode($this->m_postvars['atknodeuri']);
+        $record = $node->select($this->m_postvars['atkselector'])->getFirstRow();
+
+        foreach (array_keys($node->m_attribList) as $attribname) {
+            $p_attrib = $node->m_attribList[$attribname];
+            if($p_attrib->isPosted($this->m_postvars)) {
+                $record[$p_attrib->fieldName()] = $p_attrib->fetchValue($this->m_postvars);
+            }
+        }
+
+        if($node->updateDb($record)) {
+            $node->getDb()->commit();
+        }
+        exit;
+    }
+
+
+    public function __construct($nodeUri)
     {
         parent::__construct($nodeUri, Node::NF_ADD_LINK);
 
         $this->setTable('testbed_Playground');
-        $this->add(new Attribute('id', A::AF_AUTOKEY));
+        $attr = $this->add(new Attribute('id', A::AF_AUTOKEY));
+        $attr->removeFlag(A::AF_HIDE)->addFlag(A::AF_READONLY);
+
+
+        $this->addSecurityMap('updateattribute', 'edit');
+
+       // $this->setEditableListAttributes(['Attribute', 'BoolAttribute', 'theListAttribute']);
+
 
         /** tab ************************/
         $tab = 'default';
@@ -93,8 +111,18 @@ class Playground extends Node
         //test tabbed pane
 
 
+      //  $this->add(new CurrencyAttribute('CurrencyAttribute'), $tab);
+      //  $flags = FileAttribute::AF_FILE_NO_SELECT|FileAttribute::AF_FILE_PHYSICAL_DELETE;
 
-        $this->add(new Attribute('Attribute'), $tab);
+     //   $this->add(new FileAttribute('FileAttribute', $flags, [__DIR__.'/../../../web/files', '/files']));
+
+
+        $attr = $this->add(new Attribute('Attribute'), $tab);
+        $attr->setHelp('attr_help_test');
+        $attr->setPlaceholder('testo di placeholder');
+
+
+        //$this->add(new Attribute('Attribute', A::AF_OBLIGATORY), $tab);
         $this->add(new BoolAttribute('BoolAttribute'), $tab);
         $this->add(new CalculatorAttribute('CalculatorAttribute', 0, '10*5'), $tab);
 
@@ -103,8 +131,8 @@ class Playground extends Node
         $attr->addOnChangeHandler('console.log("theDateTimeAttribute onchange triggered!");');
         $this->add($attr, 'default');
 
-       // $this->add(new MultiSelectAttribute('MultiSelectAttribute', A::AF_SEARCHABLE, ['option1', 'option2', 'option3'],
-       //     ['option1val', 'option2val', 'option3val']), $tab);
+        // $this->add(new MultiSelectAttribute('MultiSelectAttribute', A::AF_SEARCHABLE, ['option1', 'option2', 'option3'],
+        //     ['option1val', 'option2val', 'option3val']), $tab);
 
 
         $attr = new ListAttribute('theListAttribute', A::AF_SEARCHABLE,
@@ -119,13 +147,14 @@ class Playground extends Node
         $this->add($attr);
 
 
-        $attr = new ManyToOneRelation('FM2O', A::AF_LARGE|A::AF_SEARCHABLE, $this->getModule().'.m2o_node');
+        $attr = new ManyToOneRelation('FM2O', A::AF_LARGE | A::AF_SEARCHABLE, $this->getModule().'.m2o_node');
         //attr->setWidth('300px');
         //$attr->addDestinationFilter('id = 1');
         // $attr->setAutoSearch(true);
         //$attr->addOnChangeHandler('console.log("onchange triggered!");');
         //$attr->addDependency([$this, 'theListAttributeDependency']);
         $this->add($attr);
+        $attr->setHelp('prova di help!');
 
         /*
         $attr = new MultiSelectListAttribute('theMultiSelectListAttribute', A::AF_SEARCHABLE,
@@ -143,8 +172,6 @@ class Playground extends Node
 */
 
 
-        return true;
-
 
 
 
@@ -154,11 +181,6 @@ class Playground extends Node
         $this->add($attr, $tab);
 
         //$this->add(new PasswordAttribute('PasswordAttribute', PasswordAttribute::AF_PASSWORD_NO_VALIDATE, true, ['minnumbers' => 2, 'minalphabeticchars' => 6]), $tab);
-
-        return true;
-
-
-
 
 
 
@@ -172,7 +194,6 @@ class Playground extends Node
             $this->add(new ExpressionAttribute('ExpressionAttribute'.$i, A::AF_SEARCHABLE, 'SELECT 5', 'number'), $tab);
         }
 
-        return;
 
         //$tab = 'tab_2';
 
@@ -182,30 +203,19 @@ class Playground extends Node
         $this->add($attr, $tab);
 
 
-
-
-        return;
-
-
         $attr = new DateTimeAttribute('theDateTimeAttribute', A::AF_SEARCHABLE);
 
-
-        //$attr->setEmptyValue(-1);
-        $attr->setAutoSearch(true);
 
         $attr->addOnChangeHandler("console.log(el);");
 
         $this->add($attr, $tab);
 
 
-
-
-
         $this->add(new Attribute('Attribute'), $tab);
         $this->add(new BoolAttribute('BoolAttribute'), $tab);
         $this->add(new CalculatorAttribute('CalculatorAttribute', 0, '10*5'), $tab);
         $this->add(new CkAttribute('CkAttribute'), $tab);
-        $this->add(new ColorPickerAttribute('ColorPickerAttribute'), $tab);
+        $this->add(new ColorPickerAttribute('ColorPickerAttribute'), $tab)->setPlaceholder('placeholder')->setHelp('help del colore');
         $this->add(new CountryAttribute('CountryAttribute'), $tab);
         $this->add(new CreatedByAttribute('CreatedByAttribute'), $tab);
         $this->add(new CreateStampAttribute('CreateStampAttribute'), $tab);
@@ -215,7 +225,7 @@ class Playground extends Node
         $tab = "tab_2";
 
 
-        $this->add(new CurrencyAttribute('CurrencyAttribute'), $tab);
+
 
         $this->add(new DummyAttribute('DummyAttribute'), $tab);
         $this->add(new DurationAttribute('DurationAttribute'), $tab);
@@ -249,7 +259,7 @@ class Playground extends Node
         $this->add(new LiveTextPreviewAttribute('LiveTextPreviewAttribute', 0, 'LiveTextPreviewAttributeMaster'), $tab);
         $this->add(new MultipleFileAttribute('MultipleFileAttribute', 0, [Config::getGlobal('application_dir').'web/multiplefiles/', '/multiplefiles/']), $tab);
 
-        $this->add(new NumberAttribute('NumberAttribute', 0, 20, 2), $tab);
+        $this->add(new NumberAttribute('NumberAttribute', 0, 20, 2), $tab)->setPlaceholder('test placeholder NumberAttribute');
         $this->add(new ParserAttribute('ParserAttribute', 0, 'NumberAttribute is: [NumberAttribute]'), $tab);
         $this->add(new PasswordAttribute('PasswordAttribute'), $tab);
         $this->add(new RadioAttribute('RadioAttribute', 0, ['option_1', 'option_2', 'option_3']), $tab);
@@ -272,7 +282,7 @@ class Playground extends Node
         $this->add(new TimeZoneAttribute('TimeZoneAttribute'), $tab);
         $this->add(new UpdatedByAttribute('UpdatedByAttribute'), $tab);
         $this->add(new UpdateStampAttribute('UpdateStampAttribute'), $tab);
-        $this->add(new UrlAttribute('UrlAttribute'), $tab);
+        $this->add(new UrlAttribute('UrlAttribute'), $tab)->setPlaceholder('test placeholder UrlAttribute');
         $this->add(new WeekdayAttribute('WeekdayAttribute'), $tab);
 
 
@@ -289,6 +299,4 @@ class Playground extends Node
         $rel->setRemoteKey('remotetable_id');
         $this->add($rel, $tab);
     }
-
-
 }

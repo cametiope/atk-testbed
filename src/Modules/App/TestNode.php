@@ -7,6 +7,7 @@ use Sintattica\Atk\Core\Config;
 use Sintattica\Atk\Core\Node;
 use Sintattica\Atk\Attributes\Attribute;
 use Sintattica\Atk\Attributes\TextAttribute;
+use Sintattica\Atk\RecordList\HtmlRecordList;
 
 class TestNode extends Node
 {
@@ -21,5 +22,15 @@ class TestNode extends Node
         $this->add(new TextAttribute('description'));
 
         $this->setDescriptorTemplate('[name]');
+    }
+
+    function action_lista_admin(){
+
+        $recordset = $this->select()->getAllRows();
+        $recordList = new HtmlRecordList();
+        $recordList->setExportingCSVToFile(false);
+
+        echo $recordList->render($this, $recordset);
+        die;
     }
 }
