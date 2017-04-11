@@ -1,0 +1,223 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "39a46f756da89fd29f6633b5b36d9cc9",
+    "packages": [
+        {
+            "name": "fightbulc/moment",
+            "version": "1.26.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/moment.php.git",
+                "reference": "68f3ddad3feca6d7aae5a333724401355661afbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/68f3ddad3feca6d7aae5a333724401355661afbb",
+                "reference": "68f3ddad3feca6d7aae5a333724401355661afbb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Moment\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ashish Tilara",
+                    "email": "ashish@itcutives.com",
+                    "role": "developer"
+                },
+                {
+                    "name": "Jaroslaw Kozak",
+                    "email": "jaroslaw.kozak68@gmail.com",
+                    "role": "developer"
+                },
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Parse, validate, manipulate, and display dates in PHP w/ i18n support. Inspired by moment.js",
+            "keywords": [
+                "date",
+                "display",
+                "format",
+                "i18n",
+                "locale",
+                "manipulate",
+                "moment",
+                "parse",
+                "time",
+                "translation",
+                "validate"
+            ],
+            "time": "2017-01-19T07:57:28+00:00"
+        },
+        {
+            "name": "sintattica/atk",
+            "version": "9.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sintattica/atk.git",
+                "reference": "bee335e463b24b774231b7acdf2fcdc1c798bd52"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sintattica/atk/zipball/bee335e463b24b774231b7acdf2fcdc1c798bd52",
+                "reference": "bee335e463b24b774231b7acdf2fcdc1c798bd52",
+                "shasum": ""
+            },
+            "require": {
+                "fightbulc/moment": "^1.13",
+                "php": ">=5.5.9",
+                "smarty/smarty": "^3.1",
+                "vlucas/phpdotenv": "^2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sintattica\\Atk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "ATK business framework",
+            "homepage": "https://github.com/sintattica/atk",
+            "keywords": [
+                "framework"
+            ],
+            "time": "2017-04-07 16:43:37"
+        },
+        {
+            "name": "smarty/smarty",
+            "version": "v3.1.31",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smarty-php/smarty.git",
+                "reference": "c7d42e4a327c402897dd587871434888fde1e7a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/c7d42e4a327c402897dd587871434888fde1e7a9",
+                "reference": "c7d42e4a327c402897dd587871434888fde1e7a9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "libs/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Monte Ohrt",
+                    "email": "monte@ohrt.com"
+                },
+                {
+                    "name": "Uwe Tews",
+                    "email": "uwe.tews@googlemail.com"
+                },
+                {
+                    "name": "Rodney Rehm",
+                    "email": "rodney.rehm@medialize.de"
+                }
+            ],
+            "description": "Smarty - the compiling PHP template engine",
+            "homepage": "http://www.smarty.net",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2016-12-14T21:57:25+00:00"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause-Attribution"
+            ],
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2016-09-01T10:05:43+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "sintattica/atk": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
