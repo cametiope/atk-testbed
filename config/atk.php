@@ -10,12 +10,6 @@ return [
 
     'language_basedir' => $_baseDir . 'src/languages/',
 
-    'modules' => [
-        App\Modules\Auth\Module::class,
-        App\Modules\App\Module::class,
-        App\Modules\Testbed\Module::class,
-    ],
-
     'language' => 'it',
 
     'debug' => 1,
