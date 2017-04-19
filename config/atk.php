@@ -12,6 +12,17 @@ return [
 
     'language' => 'it',
 
+    'db' => [
+        'default' => [
+            'host' => 'localhost',
+            'db' => 'atk-testbed',
+            'user' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'driver' => 'MySqli',
+        ],
+    ],
+
     'debug' => 1,
 
     'authentication' => 'db',
