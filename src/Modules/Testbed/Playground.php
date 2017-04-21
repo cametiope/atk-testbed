@@ -49,6 +49,13 @@ class Playground extends Node
     public function __construct($nodeUri)
     {
         parent::__construct($nodeUri, Node::NF_ADD_LINK);
+
+    }
+
+    public function init()
+    {
+        parent::init();
+
         $this->setTable('testbed_Playground');
 
         $attr = $this->add(new Attribute('id', A::AF_AUTOKEY));

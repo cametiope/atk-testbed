@@ -14,16 +14,18 @@ class M2ONode extends Node
 
         $this->setTable('testbed_M2ONode');
         $this->setSecurityAlias($this->getModule().'.playground');
+        $this->setDescriptorTemplate('[m2o_name]');
+        //  $this->setDescriptorHandler($this);
+    }
 
+    public function init()
+    {
         $this->add(new Attribute('id', Attribute::AF_AUTOKEY));
         $this->add(new Attribute('m2o_name', Attribute::AF_FORCE_LOAD | Attribute::AF_SEARCHABLE));
         $this->add(new NumberAttribute('numeroA', Attribute::AF_TOTAL | Attribute::AF_SEARCHABLE, 2));
         $this->add(new NumberAttribute('numeroB', Attribute::AF_TOTAL | Attribute::AF_SEARCHABLE, 2));
-
-
-        $this->setDescriptorTemplate('[m2o_name]');
-        //  $this->setDescriptorHandler($this);
     }
+
 
     /*
     public function descriptor($record)
