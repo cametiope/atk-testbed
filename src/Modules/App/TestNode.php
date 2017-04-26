@@ -19,7 +19,7 @@ class TestNode extends Node
     public function init()
     {
         $this->add(new Attribute('id', Attribute::AF_AUTOKEY));
-        $this->add(new Attribute('name', Attribute::AF_OBLIGATORY));
+        $this->add(new Attribute('name', Attribute::AF_OBLIGATORY|Attribute::AF_SEARCHABLE));
         $this->add(new TextAttribute('description'));
     }
 
