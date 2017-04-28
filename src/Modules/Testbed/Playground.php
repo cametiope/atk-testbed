@@ -39,6 +39,8 @@ use Sintattica\Atk\Attributes\UrlAttribute;
 use Sintattica\Atk\Attributes\WeekdayAttribute;
 use Sintattica\Atk\Core\Config;
 use Sintattica\Atk\Core\Node;
+use Sintattica\Atk\Handlers\AdminHandler;
+use Sintattica\Atk\Handlers\EditHandler;
 use Sintattica\Atk\Relations\ManyToOneRelation;
 use Sintattica\Atk\Relations\OneToManyRelation;
 use Sintattica\Atk\Relations\OneToOneRelation;
