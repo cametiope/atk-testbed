@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "fightbulc/moment",
-            "version": "1.26.2",
+            "version": "1.26.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fightbulc/moment.php.git",
-                "reference": "68f3ddad3feca6d7aae5a333724401355661afbb"
+                "reference": "435f3aee1d7da2eb14e53ae93a664812c3cb18a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/68f3ddad3feca6d7aae5a333724401355661afbb",
-                "reference": "68f3ddad3feca6d7aae5a333724401355661afbb",
+                "url": "https://api.github.com/repos/fightbulc/moment.php/zipball/435f3aee1d7da2eb14e53ae93a664812c3cb18a9",
+                "reference": "435f3aee1d7da2eb14e53ae93a664812c3cb18a9",
                 "shasum": ""
             },
             "require": {
@@ -67,7 +67,7 @@
                 "translation",
                 "validate"
             ],
-            "time": "2017-01-19T07:57:28+00:00"
+            "time": "2017-04-20T14:35:28+00:00"
         },
         {
             "name": "sintattica/atk",
@@ -75,12 +75,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Sintattica/atk.git",
-                "reference": "bee335e463b24b774231b7acdf2fcdc1c798bd52"
+                "reference": "d93b754dfd89bd67441f77ef12509400267d0981"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Sintattica/atk/zipball/bee335e463b24b774231b7acdf2fcdc1c798bd52",
-                "reference": "bee335e463b24b774231b7acdf2fcdc1c798bd52",
+                "url": "https://api.github.com/repos/Sintattica/atk/zipball/d93b754dfd89bd67441f77ef12509400267d0981",
+                "reference": "d93b754dfd89bd67441f77ef12509400267d0981",
                 "shasum": ""
             },
             "require": {
@@ -104,7 +104,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-04-07 16:43:37"
+            "time": "2017-04-11 13:26:28"
         },
         {
             "name": "smarty/smarty",

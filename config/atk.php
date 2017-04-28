@@ -1,6 +1,6 @@
 <?php
 
-$_baseDir = __DIR__ . '/../';
+$_baseDir = __DIR__.'/../';
 
 return [
     /**
@@ -8,7 +8,7 @@ return [
      */
     'identifier' => 'atk-testbed',
 
-    'language_basedir' => $_baseDir . 'src/languages/',
+    'language_basedir' => $_baseDir.'src/languages/',
 
     'language' => 'it',
 
@@ -21,6 +21,12 @@ return [
             'charset' => 'utf8',
             'driver' => 'MySqli',
         ],
+    ],
+
+    'modules' => [
+        App\Modules\Auth\Module::class,
+        App\Modules\App\Module::class,
+        App\Modules\Testbed\Module::class,
     ],
 
     'debug' => 1,
