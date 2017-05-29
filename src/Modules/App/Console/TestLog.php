@@ -38,9 +38,20 @@ class TestLog extends Command
 
         $node = $this->app->atkGetNode('app.test_node');
         $record = $node->updateRecord($vars);
-        $output->writeln(print_r($record, 1));
 
-        if($node->addDb($record)){
+
+
+        $error = (!$node->validate($record, 'add'));
+        if (!isset($record['atkerror'])) {
+            $record['atkerror'] = [];
+        }
+        $error = $error || count($record['atkerror']) > 0;
+        foreach (array_keys($record) as $key) {
+            $error = $error || (is_array($record[$key]) && array_key_exists('atkerror', $record[$key]) && count($record[$key]['atkerror']) > 0);
+        }
+
+        if(!$error && $node->addDb($record)){
+            $output->writeln(print_r($record, 1));
             $node->getDb()->commit();
         }else{
             $output->writeln('errore add!');
