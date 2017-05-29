@@ -39,9 +39,6 @@ use Sintattica\Atk\Attributes\UrlAttribute;
 use Sintattica\Atk\Attributes\WeekdayAttribute;
 use Sintattica\Atk\Core\Config;
 use Sintattica\Atk\Core\Node;
-use Sintattica\Atk\Handlers\AddHandler;
-use Sintattica\Atk\Handlers\AdminHandler;
-use Sintattica\Atk\Handlers\EditHandler;
 use Sintattica\Atk\Relations\ManyToOneRelation;
 use Sintattica\Atk\Relations\OneToManyRelation;
 use Sintattica\Atk\Relations\OneToOneRelation;
@@ -53,17 +50,20 @@ class Playground extends Node
     {
         parent::__construct($nodeUri, Node::NF_ADD_LINK);
         $this->setTable('testbed_Playground');
+
+        $tab = 'default';
+
+        $attr = $this->add(new Attribute('id', A::AF_AUTOKEY), $tab);
+        $attr->removeFlag(A::AF_HIDE)->addFlag(A::AF_READONLY);
+
+
+        //$this->addDefaultFields($tab);
+        $this->utp($tab);
     }
 
     public function init()
     {
         parent::init();
-
-        $attr = $this->add(new Attribute('id', A::AF_AUTOKEY));
-        $attr->removeFlag(A::AF_HIDE)->addFlag(A::AF_READONLY);
-
-        $tab = 'default';
-        $this->addDefaultFields($tab);
     }
 
     protected function addDefaultFields($tab)
@@ -72,9 +72,11 @@ class Playground extends Node
         $this->add(new BoolAttribute('BoolAttribute'), $tab);
         $this->add(new CalculatorAttribute('CalculatorAttribute', 0, '10*5'), $tab);
         $this->add(new DateTimeAttribute('theDateAttribute', A::AF_SEARCHABLE), $tab);
-        $this->add(new ListAttribute('theListAttribute', A::AF_SEARCHABLE, ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]), $tab);
+        $this->add(new ListAttribute('theListAttribute', A::AF_SEARCHABLE, ['testo lungo della option_4', 'option_5', 'testo lungo della option_6'], [4, 5, 6]),
+            $tab);
         $this->add(new ManyToOneRelation('FM2O', A::AF_LARGE | A::AF_SEARCHABLE, $this->getModule().'.m2o_node'), $tab);
-        $this->add(new PasswordAttribute('PasswordAttribute', PasswordAttribute::AF_PASSWORD_NO_VALIDATE, true, ['minnumbers' => 2, 'minalphabeticchars' => 6]), $tab);
+        $this->add(new PasswordAttribute('PasswordAttribute', PasswordAttribute::AF_PASSWORD_NO_VALIDATE, true, ['minnumbers' => 2, 'minalphabeticchars' => 6]),
+            $tab);
         $this->add(new OneToManyRelation('the1OneToManyRelation', A::AF_SEARCHABLE, $this->getModule().'.o2m_node', 'playground_id'), $tab);
         $this->add(new OneToManyRelation('the2OneToManyRelation', A::AF_SEARCHABLE, $this->getModule().'.o2m_node2', 'playground_id'), $tab);
         $this->add(new ExpressionAttribute('ExpressionAttribute', A::AF_SEARCHABLE, 'SELECT 5', 'number'), $tab);
@@ -100,7 +102,8 @@ class Playground extends Node
         $this->add(new ParserAttribute('ParserAttribute', 0, 'NumberAttribute is: [NumberAttribute]'), $tab);
         $this->add(new RadioAttribute('RadioAttribute', 0, ['option_1', 'option_2', 'option_3']), $tab);
         $this->add(new SwitchAttribute('SwitchAttribute'), $tab);
-        $this->add(new TextAttribute('TextAttribute'), $tab);
+        $attr = $this->add(new TextAttribute('TextAttribute'), $tab);
+        $attr->setCssStyle('edit', 'border', '2px dotted red');
         $this->add(new TimeAttribute('TimeAttribute'), $tab);
         $this->add(new TimeZoneAttribute('TimeZoneAttribute'), $tab);
         $this->add(new UpdatedByAttribute('UpdatedByAttribute'), $tab);
@@ -108,6 +111,86 @@ class Playground extends Node
         $this->add(new UrlAttribute('UrlAttribute'), $tab)->setPlaceholder('test placeholder UrlAttribute');
         $this->add(new WeekdayAttribute('WeekdayAttribute'), $tab);
         $this->add(new OneToOneRelation('OneToOneRelation', 0, $this->getModule().'.o2o_node', 'playground_id'), $tab);
-        $this->add(new ShuttleRelation('ShuttleRelation', 0, $this->getModule().'.m2m_node', $this->getModule().'.m2o_node', 'playground_id', 'remotetable_id'), $tab);
+        $this->add(new ShuttleRelation('ShuttleRelation', 0, $this->getModule().'.m2m_node', $this->getModule().'.m2o_node', 'playground_id', 'remotetable_id'),
+            $tab);
+    }
+
+    protected function utp($tab)
+    {
+
+        $this->add(new Attribute('Attribute', A::AF_SEARCHABLE), $tab);
+//        $this->add(new DurationAttribute('DurationAttribute'), $tab);
+//        $this->add(new BoolAttribute('BoolAttribute'), $tab);
+//
+//        $this->add(new NumberAttribute('NumberAttribute'), $tab);
+//        $this->add(new DateAttribute('theDateAttribute', A::AF_SEARCHABLE), $tab);
+//        $this->add(new ListAttribute('theListAttribute', A::AF_SEARCHABLE, ['uno', 'due', 'tre']), $tab);
+//
+//        $attr = $this->add(new ManyToOneRelation('FM2O', A::AF_SEARCHABLE|A::AF_LARGE, $this->getModule().'.m2o_node'), $tab);
+//        $attr->setMultipleSearch(true, true);
+//
+//
+//        $attr = $this->add(new MultiSelectListAttribute("MultiSelectListAttribute", A::AF_SEARCHABLE, ['uno', 'due', 'tre', 'quattro']), $tab);
+//        $attr->setMultipleSearch(true, true);
+
+        // $this->add(new FieldSet('test', A::AF_OBLIGATORY, '[FM2O] [BoolAttribute] [theListAttribute] [theDateAttribute]'), $tab);
+
+
+
+
+          // $this->add(new DurationAttribute('DurationAttribute'), $tab);
+
+//        $flags = A::AF_OBLIGATORY|DateAttribute::AF_DATE_DEFAULT_EMPTY|DateAttribute::AF_DATE_EMPTYFIELD;
+//        $flags = A::AF_OBLIGATORY|DateAttribute::AF_DATE_DEFAULT_EMPTY;
+//        $this->add(new DateAttribute('theDateAttribute', A::AF_SEARCHABLE|$flags), $tab);
+
+
+//
+//        $this->add(new NumberAttribute('NumberAttribute', A::AF_SEARCHABLE), $tab);
+//        $this->add(new Attribute('Attribute', A::AF_SEARCHABLE), $tab);
+//
+//        $this->add(new FieldSet('test', A::AF_OBLIGATORY, '[NumberAttribute][Attribute]'), $tab);
+
+//        // $this->add(new DateTimeAttribute('theDateAttribute', A::AF_SEARCHABLE), $tab);
+//
+//
+//      //  $attr->setCssStyle(['edit', 'search', 'extended_search'], 'width', '100px');
+//      //  $attr->setCssStyle(['edit', 'search', 'extended_search'], 'color', 'red');
+//
+//
+//
+////
+////
+////        // $attr->setCssStyle(['edit', 'add'], 'width', '100px');
+////        // $attr->setCssStyle(['search','extended_search'], 'width', '100px');
+////
+////        /** @var ListAttribute $attr */
+//        $attr = $this->add(new ListAttribute('theListAttribute', A::AF_SEARCHABLE, ['uno', 'due', 'tre']), $tab);
+//        $attr->setCssStyle('search', 'width', 'auto');
+//        $attr->setCssStyle('extended_search', 'width', 'auto');
+//        $attr->setCssStyle('extended_search', 'display', 'inline-block');
+////
+//          $attr->setMultipleSearch(true, true);
+//
+////        /** @var ManyToOneRelation $attr */
+//        $attr = $this->add(new ManyToOneRelation('FM2O', A::AF_SEARCHABLE | A::AF_LARGE, $this->getModule().'.m2o_node'), $tab);
+//      //  $attr->setCssStyle('search', 'width', '300px');
+//         $attr->setMultipleSearch(true, true);
+////
+////
+//        $attr = $this->add(new MultiSelectListAttribute("MultiSelectListAttribute", A::AF_SEARCHABLE, ['uno', 'due', 'tre', 'quattro']), $tab);
+//        //$attr->setCssStyle('edit', 'width', '100%');
+//       // $attr->setCssStyle('edit', 'display', 'inline-block');
+//        $attr->setSelect2Options(['width' => 'auto'], 'edit');
+//      //  $attr->setMultipleSearch(true, false);
+//
+//
+//        $this->getPage()->register_stylecode(<<<EOF
+//.select2-container--bootstrap {
+//    display: inline-block;
+//}
+//EOF
+//);
+
     }
 }

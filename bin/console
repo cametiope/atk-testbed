@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+set_time_limit(0);
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Application;
+
+$input = new ArgvInput();
+
+$env = $input->getParameterOption(array('--env', '-e'), 'dev');
+
+$app = new \Sintattica\Atk\Core\Atk($env, __DIR__.'/../');
+$app->runCli();
+
+$console = new Application('ATK Testbed', '0.0.1');
+$console->add(new \App\Modules\App\Console\TestConsole($app));
+$console->add(new \App\Modules\App\Console\TestLog($app));
+$console->run();

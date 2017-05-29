@@ -34,6 +34,8 @@ return [
     'authentication' => 'db',
     'auth_usecryptedpassword' => true,
 
+    'administratorpassword' => '$2y$10$ZeVMGwpO8nrSKb3I4D7DiOSLoxpQ4vGbJqCsyqWSxAgbuQ945aaly', //admin
+
     'auth_enable_rememberme' => true,
 
     'restrictive' => true,
