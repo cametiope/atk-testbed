@@ -15,7 +15,7 @@ class M2ONode extends Node
         $this->addFilter('id < 30');
         $this->setTable('testbed_M2ONode');
         $this->setSecurityAlias($this->getModule().'.playground');
-        $this->setDescriptorTemplate('[m2o_name] [m2o_name] [m2o_name] [m2o_name] [m2o_name][m2o_name]');
+        $this->setDescriptorTemplate('[id] [m2o_name]');
         //  $this->setDescriptorHandler($this);
     }
 

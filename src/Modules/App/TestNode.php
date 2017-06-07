@@ -25,7 +25,7 @@ class TestNode extends Node
     {
         $this->add(new Attribute('id', Attribute::AF_AUTOKEY));
         $this->add(new Attribute('name', Attribute::AF_OBLIGATORY | Attribute::AF_SEARCHABLE));
-        $this->add(new TextAttribute('description'));
+        $this->add(new TextAttribute('description', Attribute::AF_SEARCHABLE));
         $this->add(new CreatedByAttribute('creator'));
     }
 
