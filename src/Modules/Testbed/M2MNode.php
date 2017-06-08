@@ -3,6 +3,7 @@
 namespace App\Modules\Testbed;
 
 use Sintattica\Atk\Attributes\Attribute;
+use Sintattica\Atk\Attributes\NumberAttribute;
 use Sintattica\Atk\Core\Node;
 
 class M2MNode extends Node
@@ -19,5 +20,6 @@ class M2MNode extends Node
     {
         $this->add(new Attribute('playground_id', Attribute::AF_PRIMARY));
         $this->add(new Attribute('remotetable_id', Attribute::AF_PRIMARY));
+        $this->add(new NumberAttribute('position'));
     }
 }
