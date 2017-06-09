@@ -10,6 +10,8 @@ return [
 
     'language_basedir' => $_baseDir.'src/languages/',
 
+    'recordlist_onclick' => false,
+
     'language' => 'it',
 
     'db' => [

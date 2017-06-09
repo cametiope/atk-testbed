@@ -40,6 +40,7 @@ use Sintattica\Atk\Attributes\UrlAttribute;
 use Sintattica\Atk\Attributes\WeekdayAttribute;
 use Sintattica\Atk\Core\Config;
 use Sintattica\Atk\Core\Node;
+use Sintattica\Atk\Relations\ExtendableShuttleRelation;
 use Sintattica\Atk\Relations\ManyToManySelectRelation;
 use Sintattica\Atk\Relations\ManyToOneRelation;
 use Sintattica\Atk\Relations\OneToManyRelation;
@@ -144,13 +145,21 @@ class Playground extends Node
     {
         $tab = 'default';
 
-        $this->add(new ManyToManySelectRelation('ShuttleRelation', 0, $this->getModule().'.m2m_node', $this->getModule().'.m2o_node', 'playground_id', 'remotetable_id'),
-            $tab);
+
+        $this->getPage()->register_script(Config::getGlobal('assets_url').'javascript/attribute.js');
+
+        $this->add(new Attribute('Attribute', A::AF_OBLIGATORY), $tab);
+        $this->add(new Attribute('UrlAttribute'), $tab);
+
+       // $attr = new ShuttleRelation('ShuttleRelation', 0, $this->getModule().'.m2m_node', $this->getModule().'.m2o_node', 'playground_id', 'remotetable_id');
+        //$attr->setPositionAttribute('position');
+
+      //  $this->add($attr, $tab);
 
 
 //        $this->add(new Attribute('Attribute'), $tab);
 //        $this->add(new Attribute('UrlAttribute'), $tab);
-//        $this->add(new ListAttribute('theListAttribute', 0, ['uno', 'due', 'tre', 'quattro']), $tab)->addDependency([$this, 'listAttributeChanged']);
+        $this->add(new ListAttribute('theListAttribute', 0, ['uno', 'due', 'tre', 'quattro']), $tab)->addDependency([$this, 'listAttributeChanged']);
 //        $this->add(new DateTimeAttribute('theDateAttribute', A::AF_SEARCHABLE), $tab);
 //        $this->add(new OneToManyRelation('the1OneToManyRelation', A::AF_SEARCHABLE, $this->getModule().'.o2m_node', 'playground_id'), $tab);
 
