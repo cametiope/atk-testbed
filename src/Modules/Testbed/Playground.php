@@ -151,10 +151,10 @@ class Playground extends Node
         $this->add(new Attribute('Attribute', A::AF_OBLIGATORY), $tab);
         $this->add(new Attribute('UrlAttribute'), $tab);
 
-       // $attr = new ShuttleRelation('ShuttleRelation', 0, $this->getModule().'.m2m_node', $this->getModule().'.m2o_node', 'playground_id', 'remotetable_id');
+       $attr = new ShuttleRelation('ShuttleRelation', 0, $this->getModule().'.m2m_node', $this->getModule().'.m2o_node', 'playground_id', 'remotetable_id');
         //$attr->setPositionAttribute('position');
 
-      //  $this->add($attr, $tab);
+        $this->add($attr, $tab);
 
 
 //        $this->add(new Attribute('Attribute'), $tab);
