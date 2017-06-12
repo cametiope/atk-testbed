@@ -160,7 +160,7 @@ class Playground extends Node
 //        $this->add(new Attribute('Attribute'), $tab);
 //        $this->add(new Attribute('UrlAttribute'), $tab);
         $this->add(new ListAttribute('theListAttribute', 0, ['uno', 'due', 'tre', 'quattro']), $tab)->addDependency([$this, 'listAttributeChanged']);
-//        $this->add(new DateTimeAttribute('theDateAttribute', A::AF_SEARCHABLE), $tab);
+        $this->add(new DateTimeAttribute('theDateTimeAttribute', A::AF_SEARCHABLE), $tab);
 //        $this->add(new OneToManyRelation('the1OneToManyRelation', A::AF_SEARCHABLE, $this->getModule().'.o2m_node', 'playground_id'), $tab);
 
         /*
