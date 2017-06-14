@@ -9,7 +9,7 @@
     "atk"
   ],
   "require": {
-    "sintattica/atk": "9.0.x-dev",
+    "sintattica/atk": "9.1.x-dev",
     "symfony/console": "^3.2"
   },
   "autoload": {
