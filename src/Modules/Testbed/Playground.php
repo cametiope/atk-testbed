@@ -63,7 +63,7 @@ class Playground extends Node
         //$this->addDefaultFields($tab);
         //$this->utp($tab);
         //$this->testTabs();
-        $this->testJquery();
+        $this->testSearch();
 
         // $this->add(new SmartM2O('FM2O', A::AF_LARGE | A::AF_SEARCHABLE, $this->getModule().'.m2o_node'), $tab);
 
@@ -185,6 +185,13 @@ class Playground extends Node
         ]));
         */
     }
+
+    protected function testSearch() {
+        $attr = new ListAttribute('theListAttribute', A::AF_SEARCHABLE, ['uno', 'due', 'tre', 'quattro']);
+        $attr->setMultipleSearch(true, true);
+        $this->add($attr);
+    }
+
 
     protected function testTabs()
     {
