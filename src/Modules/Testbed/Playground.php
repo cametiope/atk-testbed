@@ -190,6 +190,8 @@ class Playground extends Node
         $attr = new ListAttribute('theListAttribute', A::AF_SEARCHABLE, ['uno', 'due', 'tre', 'quattro']);
         $attr->setMultipleSearch(true, true);
         $this->add($attr);
+
+        $this->add(new ManyToOneRelation('FM2O', A::AF_LARGE | A::AF_SEARCHABLE, $this->getModule().'.m2o_node'));
     }
 
 
