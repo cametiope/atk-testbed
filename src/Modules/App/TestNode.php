@@ -29,6 +29,22 @@ class TestNode extends Node
         $this->add(new CreatedByAttribute('creator'));
     }
 
+    public function ___description_display($record, $mode) {
+        $ret = '';
+        for($i = 0;$i < 20; $i++){
+            $ret .=  $record['description'];
+        }
+        return $ret;
+    }
+
+    public function __name_display($record, $mode) {
+        $ret = '';
+        for($i = 0;$i < 20; $i++){
+            $ret .=  $record['name'];
+        }
+        return $ret;
+    }
+
     public function action_lista_admin()
     {
         $recordset = $this->select()->getAllRows();

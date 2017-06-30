@@ -11,6 +11,7 @@ return [
     'language_basedir' => $_baseDir.'src/languages/',
 
     'recordlist_onclick' => false,
+    'recordlist_top_scroller' => true,
 
     'language' => 'it',
 

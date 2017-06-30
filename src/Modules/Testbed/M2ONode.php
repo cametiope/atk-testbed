@@ -28,6 +28,11 @@ class M2ONode extends Node
     }
 
 
+    public function ___m2o_name_display($record, $mode) {
+        return $record['m2o_name']. '' .$record['m2o_name'] .''. $record['m2o_name'] .''. $record['m2o_name'] .''. $record['m2o_name'] .''. $record['m2o_name'] .''. $record['m2o_name'] .''. $record['m2o_name'] .''. $record['m2o_name'] .''. $record['m2o_name'];
+    }
+
+
     /*
     public function descriptor($record)
     {

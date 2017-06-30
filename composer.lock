@@ -122,12 +122,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Sintattica/atk.git",
-                "reference": "df590040a8fe43dee04ac99fd6f49c1871189dcf"
+                "reference": "234c1094ffeeca7f18d3000fb0cb0c10645d57b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Sintattica/atk/zipball/df590040a8fe43dee04ac99fd6f49c1871189dcf",
-                "reference": "df590040a8fe43dee04ac99fd6f49c1871189dcf",
+                "url": "https://api.github.com/repos/Sintattica/atk/zipball/234c1094ffeeca7f18d3000fb0cb0c10645d57b0",
+                "reference": "234c1094ffeeca7f18d3000fb0cb0c10645d57b0",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-06-14 13:02:35"
+            "time": "2017-06-21 08:36:30"
         },
         {
             "name": "smarty/smarty",

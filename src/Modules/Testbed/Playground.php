@@ -12,6 +12,7 @@ use Sintattica\Atk\Attributes\CountryAttribute;
 use Sintattica\Atk\Attributes\CreatedByAttribute;
 use Sintattica\Atk\Attributes\CreateStampAttribute;
 use Sintattica\Atk\Attributes\CurrencyAttribute;
+use Sintattica\Atk\Attributes\DateAttribute;
 use Sintattica\Atk\Attributes\DateTimeAttribute;
 use Sintattica\Atk\Attributes\DummyAttribute;
 use Sintattica\Atk\Attributes\DurationAttribute;
@@ -63,7 +64,9 @@ class Playground extends Node
         //$this->addDefaultFields($tab);
         //$this->utp($tab);
         //$this->testTabs();
-        $this->testSearch();
+        $this->testDateAttribute();
+
+        //$this->testFieldset();
 
         // $this->add(new SmartM2O('FM2O', A::AF_LARGE | A::AF_SEARCHABLE, $this->getModule().'.m2o_node'), $tab);
 
@@ -155,6 +158,44 @@ class Playground extends Node
         $this->add(new Attribute('Attribute'));
     }
 
+    protected function testFieldset()
+    {
+        $this->add(new ListAttribute('Attribute', 0, ['uno', 'due', 'tre']));
+        //$this->add(new BoolAttribute('BoolAttribute'));
+        $this->add(new FieldSet('provalo', A::AF_READONLY_EDIT, '[Attribute]'));
+
+
+        $this->getAttribute('Attribute')->addFlag(A::AF_READONLY_EDIT);
+    }
+
+    protected function testDateAttribute()
+    {
+        $this->add(new DateAttribute('theDateAttribute'));
+    }
+
+    protected function testHideSHow()
+    {
+
+        $this->add(new Attribute('Attribute', 0))->setHelp('ciao sono help');
+        $this->add(new ListAttribute('theListAttribute', 0, ['nascondi', 'mostra', 'uno', 'due', 'tre', 'quattro']))->addDependency([$this, 'testHideSHowHandler']);
+        $this->add(new DummyAttribute('DummyAttribute', DummyAttribute::AF_DUMMY_SHOW_LABEL, 'Testo del Dummy Attribute'))->setHelp('help dummy attribute, ciao ciao!');
+    }
+
+    public function testHideSHowHandler(EditFormModifier $modifier){
+       // $modifier->hideAttribute('DummyAttribute');
+        if(!$modifier->isInitial()){
+            $record = $modifier->getRecord();
+            if($record['theListAttribute'] === 'nascondi'){
+                $modifier->hideAttribute('DummyAttribute');
+            }
+            if($record['theListAttribute'] === 'mostra'){
+                $modifier->showAttribute('DummyAttribute');
+            }
+            $modifier->refreshAttribute('DummyAttribute');
+        }
+    }
+
+
     protected function testJquery()
     {
         $tab = 'default';
@@ -188,10 +229,20 @@ class Playground extends Node
 
     protected function testSearch() {
         $attr = new ListAttribute('theListAttribute', A::AF_SEARCHABLE, ['uno', 'due', 'tre', 'quattro']);
-        $attr->setMultipleSearch(true, true);
+        $attr->setMultipleSearch(false, true);
         $this->add($attr);
 
-        $this->add(new ManyToOneRelation('FM2O', A::AF_LARGE | A::AF_SEARCHABLE, $this->getModule().'.m2o_node'));
+
+
+        //TODO: fix ricerca con LARGE e multiple. non calcola correttamente il WHERE nella query
+        //perché il non large usa gli id e fa IN(....), mentre il large fa un
+        // maneggio del cazzo con la CONCAT_WS.
+
+
+        //$attr = new ManyToOneRelation('FM2O', A::AF_SEARCHABLE, $this->getModule().'.m2o_node');
+        $attr = new ManyToOneRelation('FM2O',  ManyToOneRelation::AF_MANYTOONE_OBLIGATORY_NULL_ITEM | A::AF_SEARCHABLE | A::AF_FORCE_LOAD, $this->getModule().'.m2o_node');
+       // $attr->setMultipleSearch(false, true);
+        $this->add($attr);
     }
 
 
@@ -218,6 +269,11 @@ class Playground extends Node
     {
 
         $this->add(new Attribute('Attribute', A::AF_SEARCHABLE), $tab);
+
+
+      //  $this->add(new OneToManyRelation('the1OneToManyRelation', A::AF_SEARCHABLE, $this->getModule().'.o2m_node', 'playground_id'), $tab);
+      //  $this->add(new OneToManyRelation('the2OneToManyRelation', A::AF_SEARCHABLE, $this->getModule().'.o2m_node2', 'playground_id'), $tab);
+
 //        $this->add(new DurationAttribute('DurationAttribute'), $tab);
 //        $this->add(new BoolAttribute('BoolAttribute'), $tab);
 //
