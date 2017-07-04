@@ -59,7 +59,7 @@ class Playground extends Node {
 		$attr->removeFlag( A::AF_HIDE )->addFlag( A::AF_READONLY );
 
 
-		$this->addDefaultFields($tab);
+		//$this->addDefaultFields($tab);
 		//$this->utp($tab);
 		//$this->testTabs();
 		// $this->testMany();
