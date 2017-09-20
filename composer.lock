@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "30c6927edef4ad80ee409dd19bd9c704",
+    "content-hash": "d49a1f5a11c75c0d173ea58fd157b0b3",
     "packages": [
         {
             "name": "doctrine/lexer",
@@ -229,16 +229,16 @@
         },
         {
             "name": "sintattica/atk",
-            "version": "9.1.x-dev",
+            "version": "9.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Sintattica/atk.git",
-                "reference": "234c1094ffeeca7f18d3000fb0cb0c10645d57b0"
+                "reference": "26f2c26f2d915268e91ee01b5465b2cd04102330"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Sintattica/atk/zipball/234c1094ffeeca7f18d3000fb0cb0c10645d57b0",
-                "reference": "234c1094ffeeca7f18d3000fb0cb0c10645d57b0",
+                "url": "https://api.github.com/repos/Sintattica/atk/zipball/26f2c26f2d915268e91ee01b5465b2cd04102330",
+                "reference": "26f2c26f2d915268e91ee01b5465b2cd04102330",
                 "shasum": ""
             },
             "require": {
@@ -262,7 +262,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-06-21 08:36:30"
+            "time": "2017-09-06T15:03:43+00:00"
         },
         {
             "name": "smarty/smarty",

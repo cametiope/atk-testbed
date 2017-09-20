@@ -10,11 +10,13 @@ class M2ONode extends Node
 {
     public function __construct($nodeUri, $flags = 0)
     {
+        $this->setSecurityAlias($this->getModule().'.playground');
+
         parent::__construct($nodeUri, $flags | Node::NF_ADD_LINK);
 
         $this->addFilter('id < 30');
         $this->setTable('testbed_M2ONode');
-        $this->setSecurityAlias($this->getModule().'.playground');
+
         $this->setDescriptorTemplate('[id] [m2o_name]');
         //  $this->setDescriptorHandler($this);
     }

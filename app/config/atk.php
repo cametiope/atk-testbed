@@ -10,10 +10,14 @@ return [
 
     'language_basedir' => $_baseDir.'src/languages/',
 
+    'application_config_dir' => __DIR__.'/',
+
     'recordlist_onclick' => false,
     'recordlist_top_scroller' => true,
 
     'language' => 'it',
+
+	//'supported_languages' => ['it', 'en'],
 
     'db' => [
         'default' => [
@@ -57,7 +61,7 @@ return [
     'auth_levelfield' => 'group_id',
     'auth_accesstable' => 'AccessRights',
 
-    'use_atkerrorhandler' => true,
+    'use_atkerrorhandler' => false,
 
     'meta_caching' => false,
     //'mailreport' => 'michele.rota@sintattica.it',
