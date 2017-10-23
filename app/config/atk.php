@@ -23,8 +23,8 @@ return [
         'default' => [
             'host' => 'localhost',
             'db' => 'atk-testbed',
-            'user' => 'root',
-            'password' => '',
+            'user' => 'web',
+            'password' => 'web',
             'charset' => 'utf8',
             'driver' => 'MySqli',
         ],
